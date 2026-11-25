@@ -42,18 +42,26 @@ DECISIONS={"bullish","bearish","neutral","insufficient evidence","no simulated t
 
 def snapshot(feed,as_of,mode,rules,rows,errors,max_age,holidays,macro_series=None):
     technical={}
+    instrument="XAUUSD spot, indicative USD/troy oz"
     gaps=None
     bar_provenance=None
     proposed=None
     tests={"status":"not run"}
     corr={}
     if feed:
-        from .core import FRAMES
+        from .core import FRAMES, MT5_GOLD
+        from .technical import candle_values
         bars=feed.closed(as_of)
         bar_provenance=feed.provenance(as_of,max_age)
+        broker_feed=feed.instrument==MT5_GOLD
+        if broker_feed:
+            instrument="XAUUSD MT5 broker instrument, USD/troy oz; not the spot benchmark"
+            tests={"status":"not run","note":"MT5 broker candles are for research, not simulator fills."}
         step=timedelta(minutes=FRAMES[feed.frame])
         gaps=sum(b.close_time-a.close_time!=step for a,b in zip(bars,bars[1:]))
         technical[feed.frame]=scan(bars)
+        if broker_feed:
+            technical[feed.frame]["recent_candles"]=[candle_values(b) for b in bars[-8:]]
         for f in ("15m","1h","4h"):
             if FRAMES[f]>FRAMES[feed.frame] and FRAMES[f]%FRAMES[feed.frame]==0:
                 technical[f]=scan(resample(bars,feed.frame,f))
@@ -72,12 +80,12 @@ def snapshot(feed,as_of,mode,rules,rows,errors,max_age,holidays,macro_series=Non
         normalized.append(r|{"id":"E-"+digest(r)[:16]})
     if bar_provenance:
         pr=bar_provenance
-        b={"series":"SPOT_OHLC","units":pr["units"],"instrument":pr["instrument"],
+        b={"series":"BROKER_OHLC" if broker_feed else "SPOT_OHLC","units":pr["units"],"instrument":pr["instrument"],
            "value":f"Completed {feed.frame} bars; {gaps} discontinuities; {pr['delay']}",
            "source":pr["source"],"observed":pr["latest_closed_at"],"retrieved_at":pr["retrieved_at"],
            "fresh":pr["fresh"],"age_seconds":pr["age_seconds"],"synthetic":pr["synthetic"]}
         normalized.append(b|{"id":"E-"+digest(b)[:16]})
-    return {"as_of":iso(as_of),"mode":mode,"instrument":"XAUUSD spot, indicative USD/troy oz",
+    return {"as_of":iso(as_of),"mode":mode,"instrument":instrument,
             "provenance":bar_provenance,"gaps":gaps,"technical":technical,
             "sessions":session_info(as_of,holidays),"evidence":normalized,
             "price_yield_dollar_correlation":corr,"simulation":tests,"paper_hypothesis":proposed,
@@ -220,6 +228,10 @@ def markdown(r):
            r["execution_decision"],"", "## Market and data freshness",""]
     if p:=r["provenance"]:
         lines.append(f"- {esc(p['instrument'])}; {esc(p['delay'])}; age {p['age_seconds']} seconds; {r['gaps']} discontinuities.")
+        if p.get("broker_symbol"):
+            lines.append(f"- MT5 symbol: {esc(p['broker_symbol'])}. Chart price basis: {esc(p['quote_kind'])}.")
+            if quote:=p.get("last_quote"):
+                lines.append(f"- Last bid/ask: {quote['bid']:.4f} / {quote['ask']:.4f} USD/oz at {quote['at']} (fresh={quote['fresh']}).")
         if p["synthetic"]:
             lines.append("- **SYNTHETIC fixture. No real market observations.**")
     else:
@@ -228,9 +240,12 @@ def markdown(r):
     for f,s in r["technical"].items():
         if f!="session_levels" and s.get("bars"):
             lines.append(f"- {esc(f)}: {s['bars']} bars, close {s['last']:.3f}, {esc(s['regime'])}, RSI {s['rsi14']}, ATR {s['atr14']}, breakout {s['breakout']}.")
+            if candle:=s.get("latest_candle"):
+                lines.append(f"  - OHLC: {candle['open']:.4f}, {candle['high']:.4f}, {candle['low']:.4f}, {candle['close']:.4f}; upper/lower wick {candle['upper_wick']:.4f} / {candle['lower_wick']:.4f}.")
+                lines.append(f"  - EMA: {esc(s['ema'])}; RMA14 (close): {s['rma14']}; MACD: {esc(s['macd'])}.")
     lines+=["","## Macro, institutional and news evidence",""]
     for e in r["evidence"]+r["followup"]:
-        if e["series"]!="SPOT_OHLC":
+        if e["series"] not in {"SPOT_OHLC","BROKER_OHLC"}:
             lines.append(f"- {esc(e['id'])} {esc(e['instrument'])}: {esc(e['value'])} {esc(e['units'])} ({esc(e['observed'])}; fresh={e['fresh']}).")
             if "previous_observation" in e:
                 prior=e["previous_observation"]

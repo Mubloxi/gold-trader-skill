@@ -27,3 +27,7 @@ python scripts/demo.py --out demo-run
 ## Remaining operational limits
 
 The automatic adapters cover spot (optional entitlement), FRED macro observations, Treasury yield fallback, BLS calendar, Fed monetary headlines, and CFTC futures positioning. FOMC and BEA schedules, exact DXY and COMEX futures quotes, central-bank purchases, ETF flows, PMI, independent liquidity observations and geopolitical reporting require verified timestamped evidence input. There is no comprehensive news wire, venue holiday API, guaranteed free real-time XAUUSD feed or built-in scheduler. Latest-vintage macro data is kept out of replay. Agent independence and capability restrictions depend on the host. The default demo needs no subscription and cannot establish real market performance.
+
+## v1.1 MT5 update
+
+36 tests passed locally, including adapter checks with a mocked terminal, completed candle conversion, bid/ask and spread, wick math, freshness, indicator warmup, incorrect instrument rejection and research/simulation separation. See [the v1.1 log](TEST-LOG-v1.1.txt). No Windows MT5 terminal or Pepperstone login was available in this environment; this is not a successful broker connection test. Use the Windows market command in the README to verify an actual connection.

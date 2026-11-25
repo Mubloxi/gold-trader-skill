@@ -1,0 +1,41 @@
+test_adverse_gap_and_missing_rows (test_engine.Paper.test_adverse_gap_and_missing_rows) ... ok
+test_ambiguous_stop_is_first (test_engine.Paper.test_ambiguous_stop_is_first) ... ok
+test_costs_exposure_and_tamper_fingerprint (test_engine.Paper.test_costs_exposure_and_tamper_fingerprint) ... ok
+test_daily_loss_drawdown_and_count_veto (test_engine.Paper.test_daily_loss_drawdown_and_count_veto) ... ok
+test_ledger_atomic_replay_duplicate_and_stale (test_engine.Paper.test_ledger_atomic_replay_duplicate_and_stale) ... ok
+test_next_bar_gap_voids_pending (test_engine.Paper.test_next_bar_gap_voids_pending) ... ok
+test_same_bar_forbidden_and_invalid_rules (test_engine.Paper.test_same_bar_forbidden_and_invalid_rules) ... ok
+test_short_simulation_with_costs (test_engine.Paper.test_short_simulation_with_costs) ... ok
+test_expanding_walk_forward_order_and_determinism (test_engine.Replay.test_expanding_walk_forward_order_and_determinism) ... ok
+test_future_bars_cannot_affect_prior_replay (test_engine.Replay.test_future_bars_cannot_affect_prior_replay) ... ok
+test_sparse_bootstrap_is_not_invented (test_engine.Replay.test_sparse_bootstrap_is_not_invented) ... ok
+test_atr_includes_gaps (test_engine.Technical.test_atr_includes_gaps) ... ok
+test_closes_cutoff_and_feed_units (test_engine.Technical.test_closes_cutoff_and_feed_units) ... ok
+test_correlation_on_changes_and_constants (test_engine.Technical.test_correlation_on_changes_and_constants) ... ok
+test_envelope_and_aware_alignment (test_engine.Technical.test_envelope_and_aware_alignment) ... ok
+test_gold_sessions_dst_and_holiday (test_engine.Technical.test_gold_sessions_dst_and_holiday) ... ok
+test_resample_drops_partial_bucket (test_engine.Technical.test_resample_drops_partial_bucket) ... ok
+test_wilder_rsi_edges (test_engine.Technical.test_wilder_rsi_edges) ... ok
+test_both_project_installers_and_cli (test_install_integration.Installation.test_both_project_installers_and_cli) ... ok
+test_demo_subprocess_writes_reports_with_virtual_funds (test_install_integration.Installation.test_demo_subprocess_writes_reports_with_virtual_funds) ... ok
+test_manifests_and_windows_wrapper (test_install_integration.Installation.test_manifests_and_windows_wrapper) ... ok
+test_missing_csv_produces_insufficient_report (test_install_integration.Installation.test_missing_csv_produces_insufficient_report) ... ok
+test_broker_research_not_paper_execution (test_mt5_feed.TestMT5.test_broker_research_not_paper_execution) ... ok
+test_closed_bars_quotes_and_indicators (test_mt5_feed.TestMT5.test_closed_bars_quotes_and_indicators) ... ok
+test_wrong_instrument_disconnect_and_future_candle (test_mt5_feed.TestMT5.test_wrong_instrument_disconnect_and_future_candle) ... ok
+test_calendar_handles_tz_and_rss_deduplicates (test_providers_workflow.Providers.test_calendar_handles_tz_and_rss_deduplicates) ... ok
+test_cftc_net_is_contracts_and_observation_not_release (test_providers_workflow.Providers.test_cftc_net_is_contracts_and_observation_not_release) ... ok
+test_fred_missing_markers_dates_and_treasury_fallback_parser (test_providers_workflow.Providers.test_fred_missing_markers_dates_and_treasury_fallback_parser) ... ok
+test_manual_evidence_rejects_future_publication (test_providers_workflow.Providers.test_manual_evidence_rejects_future_publication) ... ok
+test_rate_limit_and_bad_schema_not_cached (test_providers_workflow.Providers.test_rate_limit_and_bad_schema_not_cached) ... ok
+test_retries_caches_and_excludes_auth_from_cache (test_providers_workflow.Providers.test_retries_caches_and_excludes_auth_from_cache) ... ok
+test_twelve_open_time_and_closing_filter (test_providers_workflow.Providers.test_twelve_open_time_and_closing_filter) ... ok
+test_alerts_dedupe_and_reset (test_providers_workflow.Workflow.test_alerts_dedupe_and_reset) ... ok
+test_offline_missing_produces_report_without_fake_agents (test_providers_workflow.Workflow.test_offline_missing_produces_report_without_fake_agents) ... ok
+test_stages_isolate_then_record_retraction_and_dissent (test_providers_workflow.Workflow.test_stages_isolate_then_record_retraction_and_dissent) ... ok
+test_unregistered_claim_and_snapshot_tamper_are_rejected (test_providers_workflow.Workflow.test_unregistered_claim_and_snapshot_tamper_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 2.081s
+
+OK

@@ -6,7 +6,7 @@ import stat
 
 ROOT=Path(__file__).resolve().parent.parent
 ALLOWED={"gold_desk","tests","platforms","docs","scripts","config","examples",".claude-plugin"}
-TOP={".env.example",".gitignore","LICENSE","NOTICE","README.md","install.sh","install.ps1"}
+TOP={".env.example",".gitignore","LICENSE","NOTICE","README.md","install.sh","install.ps1","START-HERE.cmd","easy-setup.ps1"}
 SKIP={"__pycache__",".gold-cache",".pytest_cache"}
 def package(out):
     out.parent.mkdir(parents=True,exist_ok=True)

@@ -1,7 +1,7 @@
 {
-  "name": "xauusd-research",
-  "version": "1.0.0",
-  "description": "Run evidence-based XAUUSD gold spot research, bounded agent debate and virtual-only paper simulations.",
+  "name": "gold-trader-skill",
+  "version": "1.3.0",
+  "description": "Run evidence-based XAUUSD spot and MT5 gold research, bounded agent debate and virtual-only paper simulations.",
   "license": "MIT",
   "skills": "./platforms/claude/.claude/skills/",
   "agents": [

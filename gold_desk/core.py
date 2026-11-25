@@ -13,6 +13,7 @@ from urllib.parse import parse_qsl, urlsplit
 UTC = timezone.utc
 FRAMES = {"1m": 1, "5m": 5, "15m": 15, "30m": 30, "1h": 60, "4h": 240}
 SPOT = "XAUUSD_SPOT"
+MT5_GOLD = "XAUUSD_MT5_BROKER"
 
 def now():
     return datetime.now(UTC).replace(microsecond=0)
@@ -112,11 +113,14 @@ class Feed:
     quote_kind: str = "indicative"
     delay: str = "unverified"
     synthetic: bool = False
+    market_meta: dict | None = None
 
     def __post_init__(self):
         ordered(self.bars, self.frame)
-        if self.instrument != SPOT or self.quote_kind not in {"mid", "bid", "ask", "indicative"}:
-            raise ValueError("expected gold spot candles with declared quote basis")
+        if (self.instrument == SPOT and self.quote_kind not in {"mid","bid","ask","indicative"}) or (
+                self.instrument == MT5_GOLD and self.quote_kind not in {"bid","last","unknown"}) or (
+                self.instrument not in {SPOT,MT5_GOLD}):
+            raise ValueError("expected gold candles with declared instrument and quote basis")
         if self.retrieved_at.utcoffset() is None:
             raise ValueError("retrieval time needs timezone")
         if not self.synthetic:
@@ -129,15 +133,23 @@ class Feed:
         bars = self.closed(as_of)
         latest = bars[-1].close_time if bars else None
         age = (as_of-latest).total_seconds() if latest else None
+        meta = {}
+        if self.market_meta:
+            meta = dict(self.market_meta)
+            if quote := meta.get("last_quote"):
+                seconds = (as_of-ts(quote["at"])).total_seconds()
+                meta["last_quote"] = quote | {"age_seconds":seconds,"fresh":0<=seconds<=max_age_minutes*60} if seconds>=0 else None
         return {"source":self.source,"instrument":self.instrument,"units":"USD/troy oz",
                 "retrieved_at":iso(self.retrieved_at),"latest_closed_at":iso(latest) if latest else None,
                 "age_seconds":age,"fresh":age is not None and age <= max_age_minutes*60,
                 "frame":self.frame,"delay":self.delay,"quote_kind":self.quote_kind,
-                "synthetic":self.synthetic}
+                "synthetic":self.synthetic} | meta
 
 def csv_feed(path, as_of):
     path = Path(path)
     meta = read_json(path.with_suffix(".json"))
+    if meta["instrument"] != SPOT:
+        raise ValueError("CSV importer accepts spot XAU/USD only")
     if not isinstance(meta.get("synthetic",False),bool):
         raise ValueError("synthetic must be boolean")
     if "retrieved_at" not in meta and not meta.get("synthetic",False):

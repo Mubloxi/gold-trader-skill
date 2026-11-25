@@ -14,6 +14,20 @@ def ema(xs,n):
         out.append(out[-1]+(x-out[-1])*2/(n+1))
     return out
 
+def rma(xs,n):
+    """Wilder smoothing, seeded with the first n values’ simple mean."""
+    if n <= 0 or len(xs) < n:
+        return []
+    out=[fmean(xs[:n])]
+    for x in xs[n:]:
+        out.append((out[-1]*(n-1)+x)/n)
+    return out
+
+def candle_values(b):
+    return {"close_time":iso(b.close_time),"open":b.o,"high":b.h,"low":b.l,"close":b.c,
+            "body":abs(b.c-b.o),"range":b.h-b.l,"upper_wick":b.h-max(b.o,b.c),
+            "lower_wick":min(b.o,b.c)-b.l,"direction":"up" if b.c>b.o else "down" if b.c<b.o else "flat"}
+
 def rsi(xs,n=14):
     if len(xs)<n+1:
         return None
@@ -67,7 +81,10 @@ def scan(bars):
     if avg["50"] is not None:
         trend="up" if xs[-1]>avg["20"]>avg["50"] else "down" if xs[-1]<avg["20"]<avg["50"] else "range/mixed"
     returns=[log(b/a) for a,b in zip(xs[-21:-1],xs[-20:])] if len(xs)>=21 else []
+    exp={str(n): series[-1] if (series:=ema(xs,n)) else None for n in (9,20,50,200)}
+    smooth=rma(xs,14)
     return {"bars":len(bars),"last":xs[-1],"at":iso(bars[-1].close_time),
+            "ema":exp,"rma14":smooth[-1] if smooth else None,"latest_candle":candle_values(bars[-1]),
             "sma":avg,"rsi14":rsi(xs),"atr14":atr(bars),
             "macd":{"line":line[-1] if line else None,"signal":sig[-1] if sig else None,
                     "histogram":line[-1]-sig[-1] if sig else None},

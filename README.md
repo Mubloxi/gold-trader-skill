@@ -1,184 +1,135 @@
-# Gold Trader Skill — XAUUSD Research Desk
+# Gold Trader Skill
 
-Research gold spot (XAUUSD) with Claude Code or OpenAI Codex. The project combines Python calculations, structured research roles, evidence records, historical simulations, and a **virtual-only** paper account.
+Eleven XAU/USD research skills for **Codex** and **Claude Code**. Analyze candles, search for gold news, review hypothetical setups, and check risk one step at a time.
 
-> **Current status:** research and simulation software. It cannot place real trades or guarantee profits. Live data-provider calls and full standalone Claude Code and Codex execution have not been verified in the original build environment. See [validation results](docs/VALIDATION.md).
+**Python is optional.** The skills can work with a screenshot, data you paste, or sources your AI can browse. Python is required for direct MT5 data, deterministic indicators and replays, and the virtual ledger. There is no live order execution.
 
-## What it does
+## Easy Windows setup
 
-- Analyzes completed gold candles across timeframes using moving averages, RSI, MACD, ATR, support, resistance, structure, and session windows.
-- Collects source-attributed evidence. Optional providers cover spot prices, macro observations, Federal Reserve news, BLS dates, and CFTC positioning. Some feeds require an API key; live access depends on provider availability.
-- Uses staged bull, bear, critic, and director research. Native host subagents are used when available; a sequential fallback is disclosed when they are not.
-- Simulates trades with a configurable virtual balance, modeled costs, independent risk checks, a persistent journal, and historical walk-forward tests.
-- Produces JSON and Markdown reports. No broker, exchange order, or real-money execution is included.
+Extract the ZIP and double-click **START-HERE.cmd**. Choices 1–2 are Codex/Claude Code with MT5, 3–4 are screenshot-only, and 5–6 are desktop app handoff. For MT5, install Python and approve the MetaTrader5 package if prompted. Log in to a demo account within desktop MT5; setup verifies the terminal reports it as demo before exporting. No broker credentials or orders are handled by the script.
 
-Gold spot, gold futures, CFDs, and ETFs are different instruments. This engine expects **spot XAUUSD candles**; don't label futures or CFD data as spot.
+The clipboard receives a suggested prompt. CLI clients can run it in the project; for desktop apps, open the project folder if supported or attach `research-run/mt5-market.json`. Clipboard copying is not automatic prompt submission. Claude Desktop and ChatGPT desktop skill discovery varies by environment; attaching JSON and pasting the prompt is the reliable fallback.
 
-## Quick start on Windows
+MT5 checks append snapshots to `research-run/observations.jsonl`. They contain market prices and indicator calculations, not account credentials. Compare each timestamp, symbol, OHLC, bid/ask and indicators against your terminal; different candle bases, warmup and current vs closed bars can explain differences. The log does not measure prediction accuracy or create AI forecasts. For a meaningful evaluation, record a timestamped forecast and invalidation before an outcome, then compare all forecasts with later observed data and include losses and missing results. Do not upload account details or private logs.
 
-Install **Python 3.11 or later**, with the Python launcher, and extract the release ZIP into Downloads. Open PowerShell:
+Select or create a **demo account in MT5** before running the check. The tool uses the account already connected in the terminal; MT5 controls account creation and account switching. If you have only one account and it is already signed in, no selection is needed. The setup uses a read-only MT5 interface. It does not trade. It has not been tested on Windows PowerShell or a live broker in this environment.
 
-```powershell
-cd "$env:USERPROFILE\Downloads\xauusd-research-desk"
-py -3 --version
-py -3 scripts/demo.py --out demo-run
-```
+## Other installation options
 
-The ZIP contains a top-level `xauusd-research-desk` folder. If your extraction tool added another folder, adjust the path to the one containing `scripts` and `README.md`.
+Extract the ZIP, open the extracted folder and double-click **START-HERE.cmd**. Choose Codex or Claude, then screenshot mode or MT5. Screenshot mode does not require Python. MT5 mode guides you through Python, broker selection and a real data check. This Windows setup has not been verified against a live broker.
 
-**What success looks like:** the command prints JSON, exits without an error, and creates `demo-run\research\report.md`, `report.json`, and a virtual account database. Open the report:
+## Install with no Python on Windows
 
-```powershell
-notepad .\demo-run\research\report.md
-```
-
-The demo's prices, trades, and results are **synthetic**. Run it again with a different output folder, for example `--out demo-run-2`, because it refuses to overwrite a populated demo folder. On Windows, if the timezone database is missing, install it with `py -3 -m pip install tzdata`.
-
-### Run the tests
-
-```powershell
-py -3 -m unittest discover -s tests -v
-```
-
-You should see individual test results followed by `OK`. Tests validate calculations and software behavior; passing them does not establish profitability or live-provider access. See [the recorded test results](docs/VALIDATION.md).
-
-## Install and use with Claude Code
-
-From the extracted project folder, install to a new project folder:
-
-```powershell
-py -3 scripts/install.py claude --target "$env:USERPROFILE\Downloads\gold-lab-claude"
-cd "$env:USERPROFILE\Downloads\gold-lab-claude"
-claude
-```
-
-Inside Claude Code, enter:
-
-```text
-/xauusd-research
-```
-
-Example request: “Use the included synthetic fixture to prepare a quick XAUUSD research report. Explain each limitation and don't queue a paper trade.”
-
-The installed skill is project-scoped. Start Claude in the installed project folder. Native subagent availability depends on the host and permissions. Claude Code, its account, and applicable usage charges are separate from this repository.
-
-## Install and use with Codex
-
-From the extracted project folder:
-
-```powershell
-py -3 scripts/install.py codex --target "$env:USERPROFILE\Downloads\gold-lab-codex"
-cd "$env:USERPROFILE\Downloads\gold-lab-codex"
-codex
-```
-
-Ask Codex:
-
-```text
-Use $xauusd-research to review a gold data file, explain the evidence and generate a research report.
-```
-
-`$xauusd-research` is the Codex skill mention, **not a slash command**. If your host supports subagents and permits them, the workflow can dispatch independent roles. Otherwise it identifies the sequential fallback.
-
-## Commands and roles
-
-| Where | Command | Purpose |
-| --- | --- | --- |
-| Claude Code | `/xauusd-research` | Start the project skill. |
-| Codex | `$xauusd-research` | Mention the skill in a request. |
-| Terminal | `py -3 -m gold_desk prepare --help` | Show evidence and report preparation options. |
-| Terminal | `py -3 -m gold_desk status --help` | Check which research stage and roles are pending. |
-| Terminal | `py -3 -m gold_desk packet --help` | Create an individual role's packet. |
-| Terminal | `py -3 -m gold_desk submit --help` | Record a real host agent's response. |
-| Terminal | `py -3 -m gold_desk followup --help` | Add a bounded batch of sourced evidence. |
-| Terminal | `py -3 -m gold_desk report --help` | Write or refresh the report. |
-| Terminal | `py -3 -m gold_desk alerts --help` | Poll configured price and event alerts. |
-| Terminal | `py -3 -m gold_desk paper-step --help` | Queue or advance a virtual hypothesis. |
-| Terminal | `py -3 -m gold_desk account --help` | Show the virtual account and journal. |
-
-**There are no separate `/bull` or `/sell` slash commands.** The skill coordinates role profiles, including scanner, news, entry, exit, time machine, risk, budget, paper broker, alerts, macro, institutional, bull, bear, critic, and director. Their named definitions are under the relevant platform's agents folder; actual dispatch depends on host capabilities. See [WORKFLOW.md](docs/WORKFLOW.md).
-
-## Push the project to your GitHub repository
-
-The repository already exists at [Mubloxi/gold-trader-skill](https://github.com/Mubloxi/gold-trader-skill). Install Git for Windows and sign in through Git Credential Manager if prompted. Extract the ZIP in Downloads first, then run:
+Download `gold-trader-skill-v1.3.zip` to Downloads, then open PowerShell:
 
 ```powershell
 cd "$env:USERPROFILE\Downloads"
-git clone https://github.com/Mubloxi/gold-trader-skill.git
-robocopy ".\xauusd-research-desk" ".\gold-trader-skill" /E /XD .git __pycache__ .gold-cache demo-run research-run /XF .env *.sqlite *.pyc
-cd .\gold-trader-skill
-git status
+Expand-Archive -LiteralPath .\gold-trader-skill-v1.3.zip -DestinationPath .\gold-skill-v13
+cd .\gold-skill-v13\xauusd-research-desk
+```
+
+### Codex
+
+Run from that folder. Keep the folder open as your project in Codex:
+
+```powershell
+Copy-Item .\platforms\codex\.agents -Destination . -Recurse -Force
+```
+
+Start or restart Codex in that folder (enter `codex` if you use the CLI). Start with:
+
+> Use $gold-scanner to review this XAU/USD chart. Use only the values you can verify and tell me what’s missing.
+
+Attach a chart, paste OHLC numbers, or provide a source with a timestamp. Use `$gold-risk` to review a hypothetical setup or `$xauusd-research` to combine scanning and review. Dollar-prefixed names are Codex skill mentions.
+
+Optional: copy `platforms\codex\.codex` to the project root the same way if you also want the custom subagent definitions. They are not needed for the chat-only skills.
+
+### Claude Code
+
+Run from the extracted folder:
+
+```powershell
+Copy-Item .\platforms\claude\.claude -Destination . -Recurse -Force
+claude
+```
+
+In Claude Code, enter `/gold-scanner`, then attach or paste your gold data. Use `/xauusd-research` for a combined review.
+
+After the updated version is pushed to GitHub, Claude Code also has a marketplace install option:
+
+```text
+/plugin marketplace add Mubloxi/gold-trader-skill
+/plugin install gold-trader-skill@gold-trader-skill
+```
+
+With the plugin, use the qualified command `/gold-trader-skill:gold-scanner`. The project-local copy above uses the shorter `/gold-scanner`. For the optional Python commands, work from a checkout or extracted folder containing `gold_desk`.
+
+### Any chat
+
+Paste a [skill's SKILL.md](platforms/claude/.claude/skills/gold-scanner/SKILL.md) plus your chart or data into the chat. This gives the AI the review instructions; it cannot connect to your desktop MT5. If a value isn't visible, timestamped, or supplied, it should say so.
+
+## The eleven
+
+| Claude Code | Codex | Job |
+| --- | --- | --- |
+| `/gold-scanner` | `$gold-scanner` | Candles, wicks, indicators and levels |
+| `/gold-news` | `$gold-news` | Dated releases, events and sources |
+| `/gold-entry` | `$gold-entry` | Hypothetical confirmation and invalidation |
+| `/gold-exit` | `$gold-exit` | Review stop, target, gaps and exit assumptions |
+| `/gold-replay` | `$gold-replay` | Read replay results or plan a reproducible replay |
+| `/gold-risk` | `$gold-risk` | Check risk assumptions and missing evidence |
+| `/gold-budget` | `$gold-budget` | Explain virtual sizing, costs and units |
+| `/gold-paper` | `$gold-paper` | Explain a paper ticket or review the virtual ledger |
+| `/gold-alerts` | `$gold-alerts` | Define conditions and review CLI alert output |
+| `/gold-macro` | `$gold-macro` | Rates, real yields, dollar and releases |
+| `/gold-positioning` | `$gold-positioning` | CFTC reports, ETF flows and central-bank evidence |
+
+The original Day Trader handoff is still the idea: **scanner → news → hypothetical entry and exit → replay → budget and risk → paper review**. You can run one skill without the others. Chat-only mode does not create real replay results, exercise the virtual ledger, or run background alerts.
+
+## Optional: actual broker candles from MT5
+
+This does require **Python on the same Windows PC as desktop MT5**. You don't need an MT5 API key. Sign in directly inside the app, open the exact gold symbol in Market Watch, and run:
+
+```powershell
+py -3 -m pip install MetaTrader5
+py -3 -m gold_desk broker setup pepperstone --symbol XAUUSD
+py -3 -m gold_desk market --require-fresh --out .\research-run\market.json
+```
+
+The other presets are `vanga` and `generic`. If discovery finds zero or multiple installs, use `broker paths pepperstone` and enter the actual path with `--terminal "C:\path\to\terminal64.exe"`. Broker names and symbols depend on your installation. The adapter reads OHLC, wicks, bid/ask and calculates indicators without a model call; give the JSON to Codex or Claude for analysis. A cloud agent cannot attach directly to your desktop. A live Pepperstone or Vanga connection was not verified in the build environment.
+
+Twelve Data is a separate spot provider: it requires `TWELVE_DATA_API_KEY` and a plan that covers the requested feed. Any offline demo in this repository uses synthetic data. Read [the broker setup guide](docs/QUICK-START.md), [the optional CLI reference](docs/CLI.md), or [validation notes](docs/VALIDATION.md).
+
+## Updating the GitHub repo (maintainer)
+
+Extract the ZIP as shown above. Copy from a fresh extraction so you don't publish local research runs or project settings. If you already ran the setup commands above, re-extract the ZIP to `gold-skill-v13-push` first:
+
+```powershell
+cd "$env:USERPROFILE\Downloads"
+Expand-Archive -LiteralPath .\gold-trader-skill-v1.3.zip -DestinationPath .\gold-skill-v13-push
+git -C .\gold-trader-skill-git remote get-url origin
+git -C .\gold-trader-skill-git status --short
+```
+
+Only continue if the remote is `Mubloxi/gold-trader-skill` and you don't have local edits to preserve. Use your actual clone folder if named differently.
+
+```powershell
+git -C .\gold-trader-skill-git pull --ff-only origin main
+if ($LASTEXITCODE -ne 0) { throw "Git pull failed. Fix it before copying." }
+robocopy .\gold-skill-v13-push\xauusd-research-desk .\gold-trader-skill-git /E /R:1 /W:1
+if ($LASTEXITCODE -ge 8) { throw "File copy failed." }
+cd .\gold-trader-skill-git
+git status --short
+```
+
+Review the listed files before staging:
+
+```powershell
 git add -A
-git commit -m "Add XAUUSD gold research skill"
+git commit -m "Add standalone gold research skills and Python-free setup"
 git push origin main
 ```
 
-Only run `git add -A` after checking `git status`; don't copy API keys, local account databases, or unrelated files. If the destination folder already exists, inspect it instead of cloning over it. Git may ask you to configure your name and email for the commit.
+If you don't already have a clone named `gold-trader-skill-git`, run `git clone https://github.com/Mubloxi/gold-trader-skill.git gold-trader-skill-git` from Downloads first. Don't clone into an existing folder.
 
----
-
-# Detailed reference
-
-A local gold spot research skill for Claude Code and Codex. The engine calculates indicators in Python, keeps timestamped evidence, runs chronological simulations, and manages an independent virtual ledger. Host agents can debate competing theses using staged evidence packets. No brokerage connectors, external execution, or guaranteed signals.
-
-## Reproduce the demo
-
-Use Python 3.11 or newer. Linux/macOS typically provide the IANA timezone database. On Windows, install timezone data if absent: `py -3 -m pip install tzdata`. No provider account or model call is required for the demo.
-
-```sh
-python scripts/demo.py --out demo-run
-python -m unittest discover -s tests -v
-```
-
-The demo starts with $250 in virtual cash, queues a hypothetical setup, advances it on subsequent synthetic candles, and writes the SQLite journal and JSON/Markdown reports. Amounts and trades are software examples, not market results.
-
-## Install in a project
-
-From the extracted repository, install into a new or empty directory, then launch your host from that directory.
-
-| Host | Linux/macOS | Windows PowerShell | Discovery |
-| --- | --- | --- | --- |
-| Claude Code | `./install.sh claude --target ./gold-lab` | `.\install.ps1 -Platform claude -Target .\gold-lab` | `.claude/skills`, `.claude/agents`; invoke `/xauusd-research` |
-| Codex CLI | `./install.sh codex --target ./gold-lab` | `.\install.ps1 -Platform codex -Target .\gold-lab` | `.agents/skills`, `.codex/agents`; invoke `$xauusd-research` |
-| Standalone Python | Run from unpacked repository | Use `py -3` instead of `python` | Deterministic reports; no agents |
-| Claude plugin loader | From the extracted root, use `claude --plugin-dir .` | Same, from the extracted root | Plugin variant of same Claude definitions; run Python from the extracted root |
-
-Project files are copied without dependencies, secrets, or overwrites of differing files. On Windows you can also run `py -3 scripts/install.py codex --target gold-lab` if local PowerShell policy blocks scripts. If the host cannot start agents, follow the explicitly labeled sequential fallback. Host plan limits and sandbox permissions still apply. Claude's skill and subagent formats and Codex's directories and TOML were checked against [Claude skills](https://code.claude.com/docs/en/skills), [Claude subagents](https://code.claude.com/docs/en/sub-agents), [Codex skills](https://developers.openai.com/codex/skills), and [Codex subagents](https://developers.openai.com/codex/subagents).
-
-## Research your instrument
-
-1. Export legally usable indicative spot candles from a data provider. Put the candle close time in UTC in column `close_time`, followed by `open,high,low,close`. Rows must be ascending, unique and aligned to the frame. Do not pass GC futures, a CFD export or GLD as spot.
-2. Put beside `spot.csv` a `spot.json` document using the shape in [config/spot.example.json](config/spot.example.json). Record actual source, retrieval time and quote basis. Supported frames: 1m, 5m, 15m, 30m, 1h and 4h. Spot has no central volume field; none is assumed.
-3. Run:
-
-```sh
-python -m gold_desk prepare --csv spot.csv --public --mode standard --session research-run/001
-python -m gold_desk report --session research-run/001
-```
-
-Use `--method native-host` only when the platform will dispatch real subagents, as described in [the agent workflow](docs/WORKFLOW.md). Use `--evidence notes.json` for verified observations or upcoming events. See [the source catalog](docs/SOURCES.md) and the [evidence example](config/evidence.example.json). The example shows formatting only; correct its dates and verify the values before import. Use `--holidays config/holidays.example.json` only as a format example: replace with holidays and shortened trading hours verified for your source (date and integer close hour are New York time).
-
-Optional: `--twelve 5m` makes Twelve Data primary and the supplied CSV fallback. Set `TWELVE_DATA_API_KEY` in your shell; the program does not automatically load .env files. The server may require a plan with gold data, and latency varies. Cached or delayed data always retains its recorded timestamp and latency label. Daily macro observations are context, not short-term trade timing.
-
-## Paper simulator
-
-```sh
-python -m gold_desk paper-step --csv spot.csv --db virtual.sqlite --config config/paper.example.json --queue
-python -m gold_desk paper-step --csv spot.csv --db virtual.sqlite --config config/paper.example.json
-python -m gold_desk account --db virtual.sqlite
-```
-
-The first command can queue a deterministic hypothetical breakout on the latest completed bar; it may decline if the feed is stale or there is no setup. Use the second command as updated overlapping candle exports arrive. Replaying old candles never duplicates events. A ledger is pinned to its provider identity, frame, quote type, synthetic flag and risk settings; start a new database to change them. Virtual shorts are symmetric fully collateralized simulations with no borrowing facility or carry model. Gaps may exceed a planned loss, even with hard risk caps on new positions.
-
-Alerts are polling only: `python -m gold_desk alerts --session research-run/001 --above 4000 --hours 24`. Prepare a fresh snapshot per poll; alert state suppresses repeats. Thresholds refer to completed candles and scheduled event notes, not orders. The program does not start a scheduler.
-
-## Troubleshooting
-
-- **Stale or missing bars**: verify symbol, feed, frame, close time and entitlement. The desk fails closed. It never fabricates a current price or substitutes futures.
-- **Insufficient coverage**: use the provider warnings and source catalog; add only verified source records. Longer frames and replay need enough history.
-- **Timezone lookups fail**: install IANA tzdata via the OS, or the Python tzdata package in the same runtime.
-- **Agent not discovered**: restart from the installation target; check the project trust settings and host subagent support. Do not claim native execution when the host cannot dispatch it.
-- **Position history missing**: provide an updated export containing the last processed candle and subsequent observations. Avoid changing the pinned source.
-- **Config incompatibility**: compare your JSON against the supplied examples; choose a new session/database when changing provenance or risk rules.
-
-See [architecture](docs/ARCHITECTURE.md), [upstream audit and plan](docs/IMPLEMENTATION-PLAN.md), [validation results](docs/VALIDATION.md), and [attribution](NOTICE).
+[MIT license](LICENSE) · [Original Day Trader attribution](NOTICE)

@@ -3,14 +3,23 @@ import argparse
 from datetime import timedelta
 from pathlib import Path
 import sys
-from .core import csv_feed, json_text, read_json, now, ts, digest, write_json
+from .core import MT5_GOLD, csv_feed, json_text, read_json, now, ts, digest, write_json
 from .paper import Rules, Ledger
 from .providers import Client, ProviderError, FRED_SERIES, FED, BLS, bls_events, fed_news, cot, fred, twelve, evidence_file, treasury
 from .workflow import Review, snapshot, ROLES
+from .mt5_feed import MT5_FRAMES, read_mt5
+from .technical import candle_values, scan
+from .brokers import BrokerProfiles, PRESETS, broker_command
 
 def options(p):
     p.add_argument("--csv",type=Path,help="spot OHLC CSV with same-stem JSON metadata")
-    p.add_argument("--twelve",choices=["1m","5m","15m","30m","1h"],help="optional primary feed; CSV is explicit fallback")
+    group=p.add_mutually_exclusive_group()
+    group.add_argument("--twelve",choices=list(MT5_FRAMES),help="Twelve Data spot feed; requires TWELVE_DATA_API_KEY")
+    group.add_argument("--mt5",choices=list(MT5_FRAMES),help="read gold from an open Windows MT5 terminal")
+    p.add_argument("--broker",help="use a saved broker profile; market and prepare use the active profile by default")
+    p.add_argument("--mt5-symbol",help="exact broker symbol shown in Market Watch")
+    p.add_argument("--mt5-terminal",type=Path,help="path to terminal64.exe if multiple terminals are installed")
+    p.add_argument("--mt5-bars",type=int,default=600)
     p.add_argument("--at",type=ts,help="ISO-8601 replay cutoff with timezone")
     p.add_argument("--config",type=Path)
     p.add_argument("--cache",type=Path,default=Path(".gold-cache"))
@@ -23,6 +32,23 @@ def choose_feed(args,at):
     if not 1<=args.max_age<=240:
         raise ValueError("max age must be 1–240 minutes")
     errs=[]
+    store=BrokerProfiles()
+    selected=args.broker
+    if not (selected or args.mt5 or args.csv or args.twelve or args.at) and args.command in {"prepare","market"}:
+        selected=store.active()
+    if args.mt5 or selected:
+        if args.at or args.csv or args.twelve:
+            raise ValueError("MT5 is a separate broker feed; do not combine it with --csv, --twelve or --at")
+        profile={}
+        if selected:
+            _,profile=store.get(selected)
+        symbol=args.mt5_symbol or profile.get("symbol","XAUUSD")
+        frame=args.mt5 or profile["frame"]
+        terminal=args.mt5_terminal or (Path(profile["terminal"]) if profile else None)
+        feed=read_mt5(symbol,frame,args.mt5_bars,terminal)
+        if selected:
+            feed.market_meta["broker_profile"]=selected
+        return feed,errs
     if args.twelve:
         if args.at:
             raise ValueError("a pinned replay cutoff requires local CSV; latest-vintage feeds are unavailable in replay")
@@ -38,7 +64,7 @@ def choose_feed(args,at):
             return csv_feed(args.csv,at),errs
         except (ValueError,KeyError,OSError,TypeError):
             errs.append("Local CSV or metadata missing, invalid, or mismatched; verify its schema and timestamps.")
-    return None,errs+["No accepted spot feed. Supply a verified local CSV or configure Twelve Data."]
+    return None,errs+["No accepted market feed. Run broker setup, use --mt5 or a verified spot CSV, or configure Twelve Data with TWELVE_DATA_API_KEY."]
 
 def acquire(args,at):
     errors=[]
@@ -116,10 +142,10 @@ def alerts(review,path,above,below,hours):
 
 def prepare(args):
     at=args.at or now()
-    f,errors=choose_feed(args,at)
     rows,errs,history=acquire(args,at)
+    f,errors=choose_feed(args,args.at or now())
     if not args.at:
-        at=now()
+        at=max(now(),f.retrieved_at) if f and f.instrument==MT5_GOLD else now()
     holidays=read_json(args.holidays) if args.holidays else {}
     from datetime import date
     for day,flag in holidays.items():
@@ -133,7 +159,34 @@ def prepare(args):
     return {"session":str(args.session),"method":args.method,"provenance":s["provenance"],
             "data_limitations":s["gaps_and_errors"],"workflow":str(review.track)}
 
+def market(args):
+    if not 1<=args.recent<=100:
+        raise ValueError("--recent must be 1–100")
+    at=args.at or now()
+    feed,errs=choose_feed(args,at)
+    if not feed:
+        raise ValueError("; ".join(errs))
+    at=args.at or (max(now(),feed.retrieved_at) if feed.instrument==MT5_GOLD else now())
+    p=feed.provenance(at,args.max_age)
+    if args.require_demo and p.get("account_mode") != "demo":
+        raise ValueError("MT5 account is not confirmed as demo; check the account selected in the terminal")
+    if args.require_fresh and (not p["fresh"] or p["synthetic"]):
+        raise ValueError("completed market candles are stale, missing or synthetic")
+    bars=feed.closed(at)
+    data={"provenance":p,"indicators":scan(bars),"candles":[candle_values(b) for b in bars[-args.recent:]],
+          "provider_warnings":errs}
+    if args.out:
+        write_json(args.out,data)
+    if args.log:
+        import json
+        args.log.parent.mkdir(parents=True,exist_ok=True)
+        with args.log.open("a",encoding="utf-8") as log:
+            log.write(json.dumps(data,allow_nan=False)+"\n")
+    return data
+
 def paper_step(args):
+    if args.mt5 or args.broker:
+        raise ValueError("MT5 broker data is research only; the paper simulator requires spot mid or indicative data")
     at=args.at or now()
     feed,errs=choose_feed(args,at)
     if not feed:
@@ -151,6 +204,30 @@ def paper_step(args):
 def create_parser():
     p=argparse.ArgumentParser(prog="python -m gold_desk",description="XAUUSD research and virtual-only simulation")
     sub=p.add_subparsers(dest="command",required=True)
+    b=sub.add_parser("broker",help="set up and switch saved local MT5 profiles")
+    b.set_defaults(run=broker_command)
+    bs=b.add_subparsers(dest="action",required=True)
+    bs.add_parser("list",help="list presets and saved profiles")
+    q=bs.add_parser("paths",help="list installed MT5 paths for a preset")
+    q.add_argument("preset",choices=PRESETS)
+    q=bs.add_parser("setup",help="save and activate a broker profile")
+    q.add_argument("preset",choices=PRESETS)
+    q.add_argument("--terminal",type=Path,help="path to the broker's terminal64.exe")
+    q.add_argument("--symbol",default="XAUUSD")
+    q.add_argument("--frame",choices=MT5_FRAMES,default="5m")
+    q.add_argument("--name",help="optional custom name for another install or account profile")
+    q=bs.add_parser("use",help="set the active broker")
+    q.add_argument("name")
+    q=bs.add_parser("show",help="display a saved profile (defaults to active)")
+    q.add_argument("name",nargs="?")
+    q=sub.add_parser("market",help="read candles, wicks and indicators into JSON")
+    options(q)
+    q.add_argument("--recent",type=int,default=12)
+    q.add_argument("--require-fresh",action="store_true")
+    q.add_argument("--require-demo",action="store_true",help="require MT5 to report a demo account")
+    q.add_argument("--log",type=Path,help="append timestamped market snapshot as JSONL")
+    q.add_argument("--out",type=Path)
+    q.set_defaults(run=market)
     q=sub.add_parser("prepare",help="prepare frozen evidence and report")
     options(q)
     q.add_argument("--session",type=Path,required=True)
