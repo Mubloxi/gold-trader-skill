@@ -1,0 +1,681 @@
+{
+  "alerts": [],
+  "as_of": "2025-01-09T19:40:00Z",
+  "director_submitted_view": null,
+  "evidence": [
+    {
+      "age_seconds": 0.0,
+      "fresh": true,
+      "id": "E-c273e4b474d1ff23",
+      "instrument": "XAUUSD_SPOT",
+      "observed": "2025-01-09T19:40:00Z",
+      "retrieved_at": "2025-01-09T19:40:00Z",
+      "series": "SPOT_OHLC",
+      "source": "fixture:deterministic-gold-like-candles",
+      "synthetic": true,
+      "units": "USD/troy oz",
+      "value": "Completed 5m bars; 0 discontinuities; synthetic; no market feed"
+    }
+  ],
+  "execution_decision": "no simulated trade authorized by this report",
+  "followup": [],
+  "gaps": 0,
+  "gaps_and_errors": [
+    "CENTRAL_BANK_GOLD: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "COMEX_GOLD_FUTURES: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "DXY: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "ETF_FLOWS: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "FOMC: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "GDP: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "GEOPOLITICS: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "LIQUIDITY: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "PCE: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "PMI: no fresh verified event or instrument-specific evidence supplied; see source catalog"
+  ],
+  "instrument": "XAUUSD spot, indicative USD/troy oz",
+  "limitations": [
+    "Host submissions are recorded as supplied. The CLI cannot authenticate who wrote them.",
+    "Macro series are latest-vintage snapshots, excluded from historical signals.",
+    "Simulated fills do not establish executable prices or future performance."
+  ],
+  "mode": "deep",
+  "paper_account": {
+    "account": {
+      "pending": null,
+      "rules": {
+        "commission_bps": 1.0,
+        "daily_loss_fraction": 0.03,
+        "initial": 250.0,
+        "lot": 0.001,
+        "max_drawdown": 0.15,
+        "max_exposure": 1.0,
+        "max_hold_bars": 12,
+        "max_trades_day": 6,
+        "risk_fraction": 0.01,
+        "slippage": 0.05,
+        "spread": 0.3
+      },
+      "signature": [
+        "XAUUSD_SPOT",
+        "fixture:deterministic-gold-like-candles",
+        "5m",
+        "mid",
+        true
+      ],
+      "state": {
+        "balance": 250.5298123245623,
+        "cursor": "2025-01-06T23:45:00Z",
+        "day": "2025-01-06",
+        "day_loss": 0.0,
+        "day_start": 250.0,
+        "day_trades": 1,
+        "drawdown": 0.0,
+        "equity": 250.5298123245623,
+        "initial": 250.0,
+        "max_drawdown": 0.0,
+        "peak": 250.5298123245623,
+        "position": null,
+        "total_cost": 0.08700781270423952
+      }
+    },
+    "history": [
+      {
+        "at": "2025-01-06T21:45:00Z",
+        "plan": {
+          "at": "2025-01-06T21:45:00Z",
+          "instrument": "XAUUSD_SPOT",
+          "lookback": 20,
+          "purpose": "hypothetical breakout research",
+          "reference": 2681.15563,
+          "side": -1,
+          "stop": 2684.471867297132,
+          "target": 2674.5231554057364
+        },
+        "type": "hypothesis"
+      },
+      {
+        "at": "2025-01-06T21:50:00Z",
+        "type": "risk",
+        "verdict": {
+          "at": "2025-01-06T21:50:00Z",
+          "fingerprint": "bbcfcfffec1641b27d15dc33b8306a2c9dfecf6010e83395676f3e859f59fed0",
+          "pass": true,
+          "reasons": []
+        }
+      },
+      {
+        "at": "2025-01-06T21:50:00Z",
+        "position": {
+          "at": "2025-01-06T21:50:00Z",
+          "bars": 0,
+          "entry": 2680.9556300000004,
+          "entry_reference": 2681.15563,
+          "fee": 0.024932887359000004,
+          "qty": 0.093,
+          "regime": "unknown",
+          "risk_fingerprint": "bbcfcfffec1641b27d15dc33b8306a2c9dfecf6010e83395676f3e859f59fed0",
+          "side": -1,
+          "signal_at": "2025-01-06T21:45:00Z",
+          "stop": 2684.471867297132,
+          "target": 2674.5231554057364
+        },
+        "type": "open"
+      },
+      {
+        "at": "2025-01-06T22:10:00Z",
+        "cost": 0.08700781270423952,
+        "exit": 2674.723155405736,
+        "exit_reference": 2674.5231554057364,
+        "pnl": 0.5298123245622975,
+        "position": {
+          "at": "2025-01-06T21:50:00Z",
+          "bars": 5,
+          "entry": 2680.9556300000004,
+          "entry_reference": 2681.15563,
+          "fee": 0.024932887359000004,
+          "qty": 0.093,
+          "regime": "unknown",
+          "risk_fingerprint": "bbcfcfffec1641b27d15dc33b8306a2c9dfecf6010e83395676f3e859f59fed0",
+          "side": -1,
+          "signal_at": "2025-01-06T21:45:00Z",
+          "stop": 2684.471867297132,
+          "target": 2674.5231554057364
+        },
+        "reason": "target (no gap improvement)",
+        "type": "close"
+      }
+    ],
+    "mode": "simulation",
+    "realized_pnl": 0.5298123245623003,
+    "sessions_utc": {
+      "2025-01-06": {
+        "closed": 1,
+        "cost": 0.08700781270423952,
+        "pnl": 0.5298123245622975,
+        "vetoes": 0
+      }
+    },
+    "unrealized_pnl_net_of_modeled_exit": 0.0
+  },
+  "paper_hypothesis": null,
+  "pending_phase": null,
+  "price_yield_dollar_correlation": {},
+  "provenance": {
+    "age_seconds": 0.0,
+    "delay": "synthetic; no market feed",
+    "frame": "5m",
+    "fresh": true,
+    "instrument": "XAUUSD_SPOT",
+    "latest_closed_at": "2025-01-09T19:40:00Z",
+    "quote_kind": "mid",
+    "retrieved_at": "2025-01-09T19:40:00Z",
+    "source": "fixture:deterministic-gold-like-candles",
+    "synthetic": true,
+    "units": "USD/troy oz"
+  },
+  "research_conclusion": "insufficient evidence",
+  "research_execution": "offline-no-agents",
+  "risk_floor": {
+    "eligible_hypothesis": false,
+    "note": "No paper fill approved. Independent ledger veto runs at simulated execution."
+  },
+  "schema_version": 1,
+  "sessions": {
+    "active": [
+      "New York"
+    ],
+    "holiday_override": null,
+    "indicative_week_open": true,
+    "overlap": false
+  },
+  "simulation": {
+    "limitations": "Independent fold balances are not compounded. Open positions are marked, not treated as realized.",
+    "method": "expanding training window; disjoint forward folds; flat/reset at fold starts",
+    "out_of_sample_trade_pnl": 6.424760979087993,
+    "status": "ok",
+    "test_folds": [
+      {
+        "default_without_training_evidence": false,
+        "out_of_sample": {
+          "buy_and_hold_pnl": -0.17331485117469797,
+          "by_regime": {
+            "falling": {
+              "expectancy": 0.43416169237608565,
+              "pnl": 1.302485077128257,
+              "trades": 3
+            },
+            "rising": {
+              "expectancy": 0.2545124288683932,
+              "pnl": 1.272562144341966,
+              "trades": 5
+            }
+          },
+          "cash_benchmark_pnl": 0.0,
+          "costs": 0.701304907770626,
+          "equity": 252.5750472214702,
+          "expectancy": 0.3218809026837779,
+          "first_bar_closed_at": "2025-01-07T21:55:00Z",
+          "flat": 0,
+          "last_bar_closed_at": "2025-01-08T07:00:00Z",
+          "loss_distribution": [
+            -0.3530585157963504
+          ],
+          "losses": 1,
+          "max_drawdown": 0.001725776244591325,
+          "median_loss": -0.3530585157963504,
+          "median_win": 0.43941502711792385,
+          "open_at_end": false,
+          "pnl": 2.575047221470223,
+          "profit_factor": 8.29354230604524,
+          "trade_pnl": [
+            0.4772337131036691,
+            0.23851038271803426,
+            0.43941502711792385,
+            0.4385182038222969,
+            0.4245518461880364,
+            -0.3530585157963504,
+            0.4614078392182144,
+            0.4484687250983985
+          ],
+          "trades": 8,
+          "vetoes": 11,
+          "win_distribution": [
+            0.4772337131036691,
+            0.23851038271803426,
+            0.43941502711792385,
+            0.4385182038222969,
+            0.4245518461880364,
+            0.4614078392182144,
+            0.4484687250983985
+          ],
+          "wins": 7
+        },
+        "selected_lookback": 20,
+        "training_end": "2025-01-07T21:50:00Z",
+        "training_scores": {
+          "15": 0.3869803308086058,
+          "20": 0.40139391929774665,
+          "30": 0.30704834814905024
+        }
+      },
+      {
+        "default_without_training_evidence": false,
+        "out_of_sample": {
+          "buy_and_hold_pnl": 0.0899885789970922,
+          "by_regime": {
+            "falling": {
+              "expectancy": -0.037517355524403107,
+              "pnl": -0.07503471104880621,
+              "trades": 2
+            },
+            "rising": {
+              "expectancy": 0.1792223900742634,
+              "pnl": 0.7168895602970536,
+              "trades": 4
+            }
+          },
+          "cash_benchmark_pnl": 0.0,
+          "costs": 0.5228640914330884,
+          "equity": 250.64185484924823,
+          "expectancy": 0.10697580820804124,
+          "first_bar_closed_at": "2025-01-08T07:05:00Z",
+          "flat": 0,
+          "last_bar_closed_at": "2025-01-08T16:10:00Z",
+          "loss_distribution": [
+            -0.32388792824720064,
+            -0.32045995446484177
+          ],
+          "losses": 2,
+          "max_drawdown": 0.0018265122360529083,
+          "median_loss": -0.3221739413560212,
+          "median_win": 0.32070031397169113,
+          "open_at_end": false,
+          "pnl": 0.6418548492482474,
+          "profit_factor": 1.996130920065568,
+          "trade_pnl": [
+            0.24542524341603555,
+            -0.32388792824720064,
+            0.3959753845273467,
+            0.4198155358908572,
+            0.22498656812605042,
+            -0.32045995446484177
+          ],
+          "trades": 6,
+          "vetoes": 13,
+          "win_distribution": [
+            0.24542524341603555,
+            0.3959753845273467,
+            0.4198155358908572,
+            0.22498656812605042
+          ],
+          "wins": 4
+        },
+        "selected_lookback": 20,
+        "training_end": "2025-01-08T07:00:00Z",
+        "training_scores": {
+          "15": 0.3422108959144012,
+          "20": 0.3503654223482374,
+          "30": 0.23330457166477256
+        }
+      },
+      {
+        "default_without_training_evidence": false,
+        "out_of_sample": {
+          "buy_and_hold_pnl": -0.1365186104367593,
+          "by_regime": {
+            "falling": {
+              "expectancy": -0.013571013488042453,
+              "pnl": -0.054284053952169814,
+              "trades": 4
+            },
+            "rising": {
+              "expectancy": 0.14237772952567793,
+              "pnl": 0.42713318857703375,
+              "trades": 3
+            }
+          },
+          "cash_benchmark_pnl": 0.0,
+          "costs": 0.6087211247753203,
+          "equity": 250.28811998174493,
+          "expectancy": 0.05326416208926627,
+          "first_bar_closed_at": "2025-01-08T16:15:00Z",
+          "flat": 0,
+          "last_bar_closed_at": "2025-01-09T01:20:00Z",
+          "loss_distribution": [
+            -0.3128774378185469,
+            -0.01713587970294251,
+            -0.3341112810972662
+          ],
+          "losses": 3,
+          "max_drawdown": 0.0016833242886617969,
+          "median_loss": -0.3128774378185469,
+          "median_win": 0.29635233248182163,
+          "open_at_end": true,
+          "pnl": 0.3728491346248639,
+          "profit_factor": 1.5614144324729342,
+          "trade_pnl": [
+            0.05023456891503448,
+            -0.3128774378185469,
+            0.37412391181662763,
+            0.2185807531470156,
+            -0.01713587970294251,
+            0.3940344993649418,
+            -0.3341112810972662
+          ],
+          "trades": 7,
+          "vetoes": 6,
+          "win_distribution": [
+            0.05023456891503448,
+            0.37412391181662763,
+            0.2185807531470156,
+            0.3940344993649418
+          ],
+          "wins": 4
+        },
+        "selected_lookback": 20,
+        "training_end": "2025-01-08T16:10:00Z",
+        "training_scores": {
+          "15": 0.3422108959144012,
+          "20": 0.3503654223482374,
+          "30": 0.23330457166477256
+        }
+      },
+      {
+        "default_without_training_evidence": false,
+        "out_of_sample": {
+          "buy_and_hold_pnl": -0.42401897564869906,
+          "by_regime": {
+            "falling": {
+              "expectancy": 0.1953902606546969,
+              "pnl": 0.5861707819640907,
+              "trades": 3
+            },
+            "rising": {
+              "expectancy": 0.13227969784346766,
+              "pnl": 0.396839093530403,
+              "trades": 3
+            }
+          },
+          "cash_benchmark_pnl": 0.0,
+          "costs": 0.5226636211789288,
+          "equity": 250.9830098754945,
+          "expectancy": 0.16383497924908227,
+          "first_bar_closed_at": "2025-01-09T01:25:00Z",
+          "flat": 0,
+          "last_bar_closed_at": "2025-01-09T10:30:00Z",
+          "loss_distribution": [
+            -0.327107764090063,
+            -0.10100394056395426
+          ],
+          "losses": 2,
+          "max_drawdown": 0.0018262703268065467,
+          "median_loss": -0.21405585232700863,
+          "median_win": 0.361973428810233,
+          "open_at_end": false,
+          "pnl": 0.9830098754944937,
+          "profit_factor": 3.2961527676262037,
+          "trade_pnl": [
+            0.29812166592303607,
+            -0.327107764090063,
+            0.36844584858542195,
+            0.355501009035044,
+            -0.10100394056395426,
+            0.3890530566050089
+          ],
+          "trades": 6,
+          "vetoes": 9,
+          "win_distribution": [
+            0.29812166592303607,
+            0.36844584858542195,
+            0.355501009035044,
+            0.3890530566050089
+          ],
+          "wins": 4
+        },
+        "selected_lookback": 20,
+        "training_end": "2025-01-09T01:20:00Z",
+        "training_scores": {
+          "15": 0.29357268991753904,
+          "20": 0.30123884319625127,
+          "30": 0.1844460989520861
+        }
+      },
+      {
+        "default_without_training_evidence": false,
+        "out_of_sample": {
+          "buy_and_hold_pnl": -0.450662621620971,
+          "by_regime": {
+            "falling": {
+              "expectancy": 0.41966132129409417,
+              "pnl": 0.8393226425881883,
+              "trades": 2
+            },
+            "flat": {
+              "expectancy": 0.4251193900888913,
+              "pnl": 0.4251193900888913,
+              "trades": 1
+            },
+            "rising": {
+              "expectancy": 0.19585262185769503,
+              "pnl": 0.5875578655730851,
+              "trades": 3
+            }
+          },
+          "cash_benchmark_pnl": 0.0,
+          "costs": 0.5251456689996512,
+          "equity": 251.85199989825017,
+          "expectancy": 0.3086666497083608,
+          "first_bar_closed_at": "2025-01-09T10:35:00Z",
+          "flat": 0,
+          "last_bar_closed_at": "2025-01-09T19:40:00Z",
+          "loss_distribution": [
+            -0.27428093008998233
+          ],
+          "losses": 1,
+          "max_drawdown": 0.0014639656882969954,
+          "median_loss": -0.27428093008998233,
+          "median_win": 0.4251193900888913,
+          "open_at_end": false,
+          "pnl": 1.8519998982501646,
+          "profit_factor": 7.752200736823322,
+          "trade_pnl": [
+            0.420782736874767,
+            0.45235445149213244,
+            0.38696819109605596,
+            0.4251193900888913,
+            -0.27428093008998233,
+            0.44105605878830034
+          ],
+          "trades": 6,
+          "vetoes": 11,
+          "win_distribution": [
+            0.420782736874767,
+            0.45235445149213244,
+            0.38696819109605596,
+            0.4251193900888913,
+            0.44105605878830034
+          ],
+          "wins": 5
+        },
+        "selected_lookback": 20,
+        "training_end": "2025-01-09T10:30:00Z",
+        "training_scores": {
+          "15": 0.25150250195730833,
+          "20": 0.25684712881684035,
+          "30": 0.16393091676045568
+        }
+      }
+    ],
+    "uncertainty": {
+      "block": 4,
+      "bootstrap_expectancy_ci95": [
+        0.09365225091729383,
+        0.2706170910763036
+      ],
+      "bootstrap_fraction_negative": 0.0,
+      "note": "Resamples modeled out-of-sample trade P&L. Conditional on this sample, not a forecast.",
+      "samples": 3000,
+      "seed": 19,
+      "status": "estimated",
+      "trades": 33
+    }
+  },
+  "submitted_host_outputs": {},
+  "technical": {
+    "15m": {
+      "at": "2025-01-09T19:30:00Z",
+      "atr14": 3.1981174866538957,
+      "bars": 366,
+      "breakout": "none",
+      "last": 2660.56002,
+      "macd": {
+        "histogram": 0.04061292412604489,
+        "line": -2.5125667362817694,
+        "signal": -2.5531796604078143
+      },
+      "regime": "down",
+      "resistance": 2673.7153,
+      "rsi14": 52.39998375968336,
+      "sma": {
+        "10": 2653.922751,
+        "20": 2660.7536950000003,
+        "50": 2663.1168592000004
+      },
+      "structure": "lower highs and lows",
+      "support": 2648.97482,
+      "volatility_log_per_bar": 0.000910846741663069
+    },
+    "1h": {
+      "at": "2025-01-09T19:00:00Z",
+      "atr14": 8.083658754482478,
+      "bars": 91,
+      "breakout": "none",
+      "last": 2652.96888,
+      "macd": {
+        "histogram": -1.1734059025345691,
+        "line": -2.844758632455978,
+        "signal": -1.6713527299214088
+      },
+      "regime": "down",
+      "resistance": 2677.31169,
+      "rsi14": 43.6543538242693,
+      "sma": {
+        "10": 2661.224943,
+        "20": 2663.641871,
+        "50": 2666.7725334
+      },
+      "structure": "lower highs and lows",
+      "support": 2648.97482,
+      "volatility_log_per_bar": 0.002552748982145336
+    },
+    "4h": {
+      "at": "2025-01-09T16:00:00Z",
+      "atr14": 27.324107243896197,
+      "bars": 22,
+      "breakout": "none",
+      "last": 2669.97965,
+      "macd": {
+        "histogram": null,
+        "line": null,
+        "signal": null
+      },
+      "regime": "insufficient",
+      "resistance": 2693.53168,
+      "rsi14": 49.6267173818523,
+      "sma": {
+        "10": 2666.977518,
+        "20": 2667.9359485,
+        "50": null
+      },
+      "structure": "mixed",
+      "support": 2647.99536,
+      "volatility_log_per_bar": 0.006572869646811115
+    },
+    "5m": {
+      "at": "2025-01-09T19:40:00Z",
+      "atr14": 1.96279447782968,
+      "bars": 1100,
+      "breakout": "none",
+      "last": 2661.87402,
+      "macd": {
+        "histogram": 1.5010509506277778,
+        "line": 1.2639864824523102,
+        "signal": -0.2370644681754676
+      },
+      "regime": "range/mixed",
+      "resistance": 2662.07655,
+      "rsi14": 77.4204432800403,
+      "sma": {
+        "10": 2657.556915,
+        "20": 2654.1523260000004,
+        "50": 2658.332126
+      },
+      "structure": "higher highs and lows",
+      "support": 2649.06759,
+      "volatility_log_per_bar": 0.0004088180344654856
+    },
+    "session_levels": {
+      "2025-01-06 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2691.54915,
+        "low": 2647.99536
+      },
+      "2025-01-06 London": {
+        "bars": 108,
+        "high": 2692.8321,
+        "low": 2649.98588
+      },
+      "2025-01-06 New York": {
+        "bars": 108,
+        "high": 2693.53168,
+        "low": 2651.03803
+      },
+      "2025-01-07 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2690.35553,
+        "low": 2653.96203
+      },
+      "2025-01-07 London": {
+        "bars": 108,
+        "high": 2688.79678,
+        "low": 2654.70383
+      },
+      "2025-01-07 New York": {
+        "bars": 108,
+        "high": 2687.60437,
+        "low": 2654.72825
+      },
+      "2025-01-08 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2682.63628,
+        "low": 2656.25721
+      },
+      "2025-01-08 London": {
+        "bars": 108,
+        "high": 2680.54665,
+        "low": 2656.20348
+      },
+      "2025-01-08 New York": {
+        "bars": 108,
+        "high": 2680.66344,
+        "low": 2659.79693
+      },
+      "2025-01-09 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2677.31169,
+        "low": 2654.37268
+      },
+      "2025-01-09 London": {
+        "bars": 108,
+        "high": 2675.68359,
+        "low": 2651.96028
+      },
+      "2025-01-09 New York": {
+        "bars": 80,
+        "high": 2673.7153,
+        "low": 2648.97482
+      }
+    }
+  },
+  "upcoming_events": []
+}

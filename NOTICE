@@ -1,0 +1,7 @@
+XAUUSD Research Desk is an adaptation of Day Trader Skill by Jake Schincariol.
+Original project: https://github.com/Jakeschincariol/day-trader-skill
+The attached upstream snapshot corresponds in structure to the public project.
+The upstream MIT license and its copyright notice are preserved verbatim in LICENSE.
+The rewrite retains the eleven-role organization, transcript-free local record handoffs,
+fixture-driven testing and independent risk checks. RSI recurrence was adapted from
+trader-scanner/scan.py. Upstream stock data, brokerage adapters and branding are not redistributed.

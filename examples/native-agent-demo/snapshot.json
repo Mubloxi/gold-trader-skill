@@ -1,0 +1,219 @@
+{
+  "as_of": "2025-01-09T19:40:00Z",
+  "evidence": [
+    {
+      "age_seconds": 0.0,
+      "fresh": true,
+      "id": "E-c273e4b474d1ff23",
+      "instrument": "XAUUSD_SPOT",
+      "observed": "2025-01-09T19:40:00Z",
+      "retrieved_at": "2025-01-09T19:40:00Z",
+      "series": "SPOT_OHLC",
+      "source": "fixture:deterministic-gold-like-candles",
+      "synthetic": true,
+      "units": "USD/troy oz",
+      "value": "Completed 5m bars; 0 discontinuities; synthetic; no market feed"
+    }
+  ],
+  "gaps": 0,
+  "gaps_and_errors": [
+    "CENTRAL_BANK_GOLD: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "COMEX_GOLD_FUTURES: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "DXY: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "ETF_FLOWS: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "FOMC: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "GDP: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "GEOPOLITICS: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "LIQUIDITY: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "PCE: no fresh verified event or instrument-specific evidence supplied; see source catalog",
+    "PMI: no fresh verified event or instrument-specific evidence supplied; see source catalog"
+  ],
+  "instrument": "XAUUSD spot, indicative USD/troy oz",
+  "mode": "quick",
+  "paper_hypothesis": null,
+  "price_yield_dollar_correlation": {},
+  "provenance": {
+    "age_seconds": 0.0,
+    "delay": "synthetic; no market feed",
+    "frame": "5m",
+    "fresh": true,
+    "instrument": "XAUUSD_SPOT",
+    "latest_closed_at": "2025-01-09T19:40:00Z",
+    "quote_kind": "mid",
+    "retrieved_at": "2025-01-09T19:40:00Z",
+    "source": "fixture:deterministic-gold-like-candles",
+    "synthetic": true,
+    "units": "USD/troy oz"
+  },
+  "risk_floor": {
+    "eligible_hypothesis": false,
+    "note": "No paper fill approved. Independent ledger veto runs at simulated execution."
+  },
+  "sessions": {
+    "active": [
+      "New York"
+    ],
+    "holiday_override": null,
+    "indicative_week_open": true,
+    "overlap": false
+  },
+  "simulation": {
+    "status": "not run"
+  },
+  "technical": {
+    "15m": {
+      "at": "2025-01-09T19:30:00Z",
+      "atr14": 3.1981174866538957,
+      "bars": 366,
+      "breakout": "none",
+      "last": 2660.56002,
+      "macd": {
+        "histogram": 0.04061292412604489,
+        "line": -2.5125667362817694,
+        "signal": -2.5531796604078143
+      },
+      "regime": "down",
+      "resistance": 2673.7153,
+      "rsi14": 52.39998375968336,
+      "sma": {
+        "10": 2653.922751,
+        "20": 2660.7536950000003,
+        "50": 2663.1168592000004
+      },
+      "structure": "lower highs and lows",
+      "support": 2648.97482,
+      "volatility_log_per_bar": 0.000910846741663069
+    },
+    "1h": {
+      "at": "2025-01-09T19:00:00Z",
+      "atr14": 8.083658754482478,
+      "bars": 91,
+      "breakout": "none",
+      "last": 2652.96888,
+      "macd": {
+        "histogram": -1.1734059025345691,
+        "line": -2.844758632455978,
+        "signal": -1.6713527299214088
+      },
+      "regime": "down",
+      "resistance": 2677.31169,
+      "rsi14": 43.6543538242693,
+      "sma": {
+        "10": 2661.224943,
+        "20": 2663.641871,
+        "50": 2666.7725334
+      },
+      "structure": "lower highs and lows",
+      "support": 2648.97482,
+      "volatility_log_per_bar": 0.002552748982145336
+    },
+    "4h": {
+      "at": "2025-01-09T16:00:00Z",
+      "atr14": 27.324107243896197,
+      "bars": 22,
+      "breakout": "none",
+      "last": 2669.97965,
+      "macd": {
+        "histogram": null,
+        "line": null,
+        "signal": null
+      },
+      "regime": "insufficient",
+      "resistance": 2693.53168,
+      "rsi14": 49.6267173818523,
+      "sma": {
+        "10": 2666.977518,
+        "20": 2667.9359485,
+        "50": null
+      },
+      "structure": "mixed",
+      "support": 2647.99536,
+      "volatility_log_per_bar": 0.006572869646811115
+    },
+    "5m": {
+      "at": "2025-01-09T19:40:00Z",
+      "atr14": 1.96279447782968,
+      "bars": 1100,
+      "breakout": "none",
+      "last": 2661.87402,
+      "macd": {
+        "histogram": 1.5010509506277778,
+        "line": 1.2639864824523102,
+        "signal": -0.2370644681754676
+      },
+      "regime": "range/mixed",
+      "resistance": 2662.07655,
+      "rsi14": 77.4204432800403,
+      "sma": {
+        "10": 2657.556915,
+        "20": 2654.1523260000004,
+        "50": 2658.332126
+      },
+      "structure": "higher highs and lows",
+      "support": 2649.06759,
+      "volatility_log_per_bar": 0.0004088180344654856
+    },
+    "session_levels": {
+      "2025-01-06 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2691.54915,
+        "low": 2647.99536
+      },
+      "2025-01-06 London": {
+        "bars": 108,
+        "high": 2692.8321,
+        "low": 2649.98588
+      },
+      "2025-01-06 New York": {
+        "bars": 108,
+        "high": 2693.53168,
+        "low": 2651.03803
+      },
+      "2025-01-07 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2690.35553,
+        "low": 2653.96203
+      },
+      "2025-01-07 London": {
+        "bars": 108,
+        "high": 2688.79678,
+        "low": 2654.70383
+      },
+      "2025-01-07 New York": {
+        "bars": 108,
+        "high": 2687.60437,
+        "low": 2654.72825
+      },
+      "2025-01-08 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2682.63628,
+        "low": 2656.25721
+      },
+      "2025-01-08 London": {
+        "bars": 108,
+        "high": 2680.54665,
+        "low": 2656.20348
+      },
+      "2025-01-08 New York": {
+        "bars": 108,
+        "high": 2680.66344,
+        "low": 2659.79693
+      },
+      "2025-01-09 Asia (Tokyo)": {
+        "bars": 96,
+        "high": 2677.31169,
+        "low": 2654.37268
+      },
+      "2025-01-09 London": {
+        "bars": 108,
+        "high": 2675.68359,
+        "low": 2651.96028
+      },
+      "2025-01-09 New York": {
+        "bars": 80,
+        "high": 2673.7153,
+        "low": 2648.97482
+      }
+    }
+  }
+}

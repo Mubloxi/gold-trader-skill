@@ -1,0 +1,6 @@
+interface:
+  display_name: "XAUUSD Research"
+  short_description: "Gold research and virtual paper simulation"
+  default_prompt: "Use $xauusd-research to prepare an evidence-based gold research report."
+policy:
+  allow_implicit_invocation: false

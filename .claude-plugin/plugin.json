@@ -1,0 +1,24 @@
+{
+  "name": "xauusd-research",
+  "version": "1.0.0",
+  "description": "Run evidence-based XAUUSD gold spot research, bounded agent debate and virtual-only paper simulations.",
+  "license": "MIT",
+  "skills": "./platforms/claude/.claude/skills/",
+  "agents": [
+    "./platforms/claude/.claude/agents/xau-technical-scanner.md",
+    "./platforms/claude/.claude/agents/xau-news-intelligence.md",
+    "./platforms/claude/.claude/agents/xau-entry-researcher.md",
+    "./platforms/claude/.claude/agents/xau-exit-researcher.md",
+    "./platforms/claude/.claude/agents/xau-time-machine.md",
+    "./platforms/claude/.claude/agents/xau-risk-manager.md",
+    "./platforms/claude/.claude/agents/xau-budget-manager.md",
+    "./platforms/claude/.claude/agents/xau-paper-broker.md",
+    "./platforms/claude/.claude/agents/xau-alert-manager.md",
+    "./platforms/claude/.claude/agents/xau-macro-analyst.md",
+    "./platforms/claude/.claude/agents/xau-institutional-analyst.md",
+    "./platforms/claude/.claude/agents/xau-bull-researcher.md",
+    "./platforms/claude/.claude/agents/xau-bear-researcher.md",
+    "./platforms/claude/.claude/agents/xau-independent-critic.md",
+    "./platforms/claude/.claude/agents/xau-research-director.md"
+  ]
+}

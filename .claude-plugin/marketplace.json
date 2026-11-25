@@ -1,0 +1,13 @@
+{
+  "name": "xauusd-research-local",
+  "owner": {
+    "name": "XAUUSD Research Desk"
+  },
+  "plugins": [
+    {
+      "name": "xauusd-research",
+      "source": "./",
+      "description": "Run evidence-based XAUUSD gold spot research, bounded agent debate and virtual-only paper simulations."
+    }
+  ]
+}

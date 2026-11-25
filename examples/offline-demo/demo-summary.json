@@ -1,0 +1,27 @@
+{
+  "events": [
+    "hypothesis",
+    "risk",
+    "open",
+    "close"
+  ],
+  "fixture": "SYNTHETIC",
+  "forward_folds": 5,
+  "research_conclusion": "insufficient evidence",
+  "research_execution": "offline-no-agents",
+  "virtual_account": {
+    "balance": 250.5298123245623,
+    "cursor": "2025-01-06T23:45:00Z",
+    "day": "2025-01-06",
+    "day_loss": 0.0,
+    "day_start": 250.0,
+    "day_trades": 1,
+    "drawdown": 0.0,
+    "equity": 250.5298123245623,
+    "initial": 250.0,
+    "max_drawdown": 0.0,
+    "peak": 250.5298123245623,
+    "position": null,
+    "total_cost": 0.08700781270423952
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "series": "FOMC",
+    "instrument": "Example only: replace with verified meeting and exact release time",
+    "value": "scheduled",
+    "units": "event",
+    "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "observed": "2025-01-29T19:00:00Z",
+    "available_at": "2025-01-06T12:00:00Z",
+    "retrieved_at": "2025-01-06T12:15:00Z"
+  }
+]

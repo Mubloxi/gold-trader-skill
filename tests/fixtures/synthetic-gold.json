@@ -1,0 +1,8 @@
+{
+  "instrument": "XAUUSD_SPOT",
+  "frame": "5m",
+  "quote_kind": "mid",
+  "synthetic": true,
+  "delay": "synthetic; no market feed",
+  "source": "fixture:deterministic-gold-like-candles"
+}

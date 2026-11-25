@@ -1,0 +1,9 @@
+.env
+.gold-cache/
+.gold-alerts.json
+__pycache__/
+*.sqlite
+*.sqlite-*
+.pytest_cache/
+demo-run/
+research-run/

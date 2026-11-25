@@ -1,0 +1,315 @@
+{
+  "followup": [],
+  "method": "native-host",
+  "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1",
+  "submissions": {
+    "critique": {
+      "independent-critic": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The 19:40 five-minute rebound and 19:00 hourly decline describe different completed bars. Both come from the same synthetic series, and the New York session high is provisional. Neither comparison independently corroborates a directional thesis."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The proposed triggers answer different questions: a five-minute hold above 2662.08 would support local continuation, and a 15-minute close below 2648.97 could invalidate the rebound while leaving the four-hour low at 2647.99536 intact. The packet does not resolve whether either pattern will occur or establish how often these rules work."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "No simulation ran, the fixture supplies only midpoints, and the risk floor records ineligibility. There is no basis for a paper fill or a net payoff estimate without a defined cost model and a conservative rule for bars that touch both stop and target."
+          }
+        ],
+        "phase": "critique",
+        "questions": [
+          "Can a replay freeze each level at the decision time, specify what counts as a hold or failed reclaim, and score the rules on later, unused bars?",
+          "What bid and ask evidence or explicit cost assumptions would support a simulation if the independent ledger found it eligible?"
+        ],
+        "role": "independent-critic",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      }
+    },
+    "cross": {
+      "bear-researcher": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "I agree that the five-minute rebound is real within the fixture. The bull's proposed close and hold above 2662.08 would confirm local continuation, but 2673.72 is still 11.64 higher and the 15-minute and hourly structures remain down. The next resistance is a checkpoint; the packet does not establish a likely move to it."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The bull's 15-minute close below 2648.97 could invalidate the support-based rebound while leaving the four-hour low near 2648 intact. Bearish continuation would still need a completed hourly close below the full support cluster and a failed reclaim. No such confirmation appears in the packet."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "unknown",
+            "statement": "I agree with risk that the synthetic midpoints leave executable prices, trading costs, and fill ordering unknown. Neither thesis establishes an executable entry."
+          }
+        ],
+        "phase": "cross",
+        "questions": [
+          "Do subsequent completed bars hold above 2662.08 with a higher low, or close below the full 2648–2649 support cluster and fail to reclaim it?",
+          "What verified bid and ask data or independent market evidence corroborates either outcome?"
+        ],
+        "role": "bear-researcher",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      },
+      "bull-researcher": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "I agree with the bear researcher that the hourly structure is down. The January 9 New York high is provisional, so it cannot confirm another completed session with a lower high. The 19:40 five-minute rebound also postdates the 19:00 hourly close, which limits the case for immediate downside."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The bear researcher's rejection near 2673.72–2677.31 is conditional: the latest close is still below the nearer 2662.08 resistance. A completed five-minute close above 2662.08 followed by a higher low above it would strengthen the rebound case; a failed break followed by a five-minute lower low would invalidate near-term continuation."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "I agree with the risk manager that synthetic midpoint candles cannot establish executable prices or costs. Even a confirmed fixture breakout would provide no basis to override the independent ledger veto."
+          }
+        ],
+        "phase": "cross",
+        "questions": [
+          "Do subsequent completed bars show a hold above 2662.08 or a failed break followed by a lower low?",
+          "What verified bid and ask data and liquidity evidence would support an execution cost estimate?"
+        ],
+        "role": "bull-researcher",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      }
+    },
+    "decision": {
+      "research-director": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "observation",
+            "statement": "The synthetic five-minute rebound closed at 2661.87, below 2662.08 resistance, while completed 15-minute and hourly bars showed lower highs and lows. No timeframe recorded a breakout. The bars close at different times, share one source, and the current New York session high is provisional."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "Both revised hypotheses remain unresolved. The bull requires a five-minute close above 2662.08 followed by a higher low above it. A 15-minute close below 2648.97 would invalidate the support-based rebound, while the bear requires an hourly close below 2647.99536 followed by a retest that closes back below it. Neither confirmation is present."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The independent risk floor marks the hypothesis ineligible and approves no paper fill. No simulation ran, and the fixture supplies no market corroboration, executable bid and ask, or basis for estimating costs, fill order, or net payoff."
+          }
+        ],
+        "decision": "no simulated trade",
+        "phase": "decision",
+        "role": "research-director",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      }
+    },
+    "independent": {
+      "bear-researcher": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "observation",
+            "statement": "The synthetic 15-minute and hourly summaries both show lower highs and lows. The last completed hourly close was 2652.97, below all three reported moving averages, with RSI at 43.65 and a negative MACD histogram. New York session highs declined from 2693.53 on January 6 to 2673.72 as of this snapshot; the current session is still open."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "contradiction",
+            "statement": "The latest five-minute close of 2661.87 is above all three five-minute moving averages, with higher highs and lows and a positive MACD histogram. The 15-minute histogram is also slightly positive. These later observations weaken the case for immediate downside from the 19:00 hourly reading. No reported timeframe registers a breakout, and the four-hour structure is mixed."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The strongest downside thesis is that the five-minute rebound could stall within the broader intraday decline. A rejection near the 2673.72–2677.31 resistance band would strengthen that thesis. A completed hourly close below the support cluster around 2648–2649, followed by a failed reclaim, would provide stronger evidence of continuation. That breakdown has not occurred in the fixture."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "A sustained move above 2673.72 would weaken the rebound-failure thesis. A completed hourly close above 2677.31 followed by an hourly higher low would invalidate its lower-high premise. A break below the support cluster that quickly closes back above 2649 would invalidate the immediate breakdown signal."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "unknown",
+            "statement": "Whether this pattern exists in live XAUUSD, has independent macro or futures confirmation, or could be executed at the indicated prices is unknown. The only registered source is a synthetic spot-mid candle fixture, with no verified liquidity or corroborating market evidence."
+          }
+        ],
+        "phase": "independent",
+        "role": "bear-researcher",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      },
+      "bull-researcher": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "observation",
+            "statement": "The latest synthetic 5-minute bar closed at 2661.87, above its 10-, 20-, and 50-bar averages. The interval shows higher highs and lows and a positive MACD histogram of 1.50. The close sits 0.20 below resistance at 2662.08, with no breakout recorded and RSI at 77.42."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "observation",
+            "statement": "The 15-minute MACD histogram is slightly positive at 0.04, but its MACD line remains below zero. Both the 15-minute and hourly intervals show lower highs and lows. The hourly MACD histogram is negative at -1.17, and hourly RSI is 43.65. The 4-hour interval has insufficient history for a regime classification."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The strongest upside thesis is a short-term rebound within a broader decline. A completed close above 2662.08 followed by a higher low that holds above that level would strengthen the case for a move toward the next observed resistance at 2673.72. A 15-minute close above 2673.72 would make 2677.31 the next observed resistance. Those levels are checkpoints; the fixture does not establish that price will reach them or that the hourly trend has reversed."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "A failed break above 2662.08 followed by a lower low on the 5-minute interval would invalidate the immediate continuation thesis. A completed 15-minute close below the shared 15-minute and hourly support at 2648.97 would invalidate the broader rebound thesis anchored to that support."
+          },
+          {
+            "evidence_ids": [],
+            "kind": "unknown",
+            "statement": "The packet contains synthetic spot candles only. It cannot establish whether live prices, liquidity, the dollar, futures, flows, or macro events corroborate the rebound. Execution quality and outcomes are also unknown; no simulation has run."
+          }
+        ],
+        "phase": "independent",
+        "role": "bull-researcher",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      },
+      "risk-manager": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "observation",
+            "statement": "The only registered evidence is a synthetic series of completed five-minute spot candles. Its freshness describes the fixture clock; the prices are indicative midpoints with no market feed or executable bid and ask."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The fixture shows a five-minute rebound just below resistance, while the fifteen-minute and hourly structures are down, the four-hour history is insufficient for its regime classification, and no frame reports a breakout. This does not establish a clear entry or enough room to cover execution costs."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "The midpoint series cannot establish executable prices or fill ordering within a candle. A simulated entry needs explicit assumptions for spread, slippage, fees if applicable, financing if held across rollover, and conservative handling of price gaps or candles that touch both stop and target."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "unknown",
+            "statement": "The registered evidence does not establish current liquidity, event exposure, modeled round-trip cost, position size, or whether the proposed trade would stay within risk limits after costs."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "Research on this fixture can identify a hypothesis and reasons to veto it. It cannot authorize a virtual fill: eligibility and execution depend on the independent Python ledger veto, and a research submission cannot grant or override that decision."
+          }
+        ],
+        "phase": "independent",
+        "questions": [
+          "Would a closed-bar trigger with a defined entry, stop, and target retain sufficient payoff under a conservative execution cost model and pass the independent ledger checks?",
+          "What verified evidence covers liquidity and material events during the proposed holding period?"
+        ],
+        "role": "risk-manager",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      }
+    },
+    "revision": {
+      "bear-researcher": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "Retain downside continuation as an unconfirmed fixture hypothesis and drop the provisional New York high as corroboration. The five-minute rebound and hourly decline come from the same series and end at different times. For a future replay, freeze the support floor at 2647.99536: require an hourly close below it, followed by an hourly retest that reaches the floor and closes back below it. An hourly close above 2677.31169 followed by a higher hourly low would invalidate the lower-high premise."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "unknown",
+            "statement": "No additional evidence was available at the cutoff. No simulation ran, so the rule's predictive value and payoff after costs are unknown. The synthetic midpoints provide no independent market confirmation or executable bid and ask prices, and no paper fill was approved."
+          }
+        ],
+        "phase": "revision",
+        "revision": "revise",
+        "role": "bear-researcher",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      },
+      "bull-researcher": {
+        "claims": [
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "Narrow the thesis to possible continuation of the five-minute rebound. A completed five-minute close above 2662.08 followed by a higher low above that level would support local continuation; 2673.72 remains a resistance checkpoint without an estimated likelihood of being reached. A failed break followed by a five-minute lower low would invalidate local continuation. A fifteen-minute close below 2648.97 would invalidate the support-based rebound even if the four-hour low near 2648 held."
+          },
+          {
+            "evidence_ids": [
+              "E-c273e4b474d1ff23"
+            ],
+            "kind": "inference",
+            "statement": "No follow-up bars or independent evidence were available at the cutoff. The five-minute rebound and the hourly decline are readings from the same synthetic midpoint series at different closing times. This cannot establish live confirmation, execution costs, or payoff. No simulation ran, and the risk floor remains ineligible."
+          }
+        ],
+        "phase": "revision",
+        "revision": "revise",
+        "role": "bull-researcher",
+        "snapshot_digest": "26a96c6ecd9b43c64dbd94c3479802fe4b8605aa6084632b7d444e7a644bc6b1"
+      }
+    }
+  },
+  "version": 1
+}

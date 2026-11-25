@@ -1,0 +1,9 @@
+{
+  "instrument": "XAUUSD_SPOT",
+  "frame": "5m",
+  "source": "https://example.com/replace-with-your-actual-data-source",
+  "retrieved_at": "2025-01-06T12:31:00Z",
+  "quote_kind": "mid",
+  "delay": "replace with documented feed latency",
+  "synthetic": false
+}
